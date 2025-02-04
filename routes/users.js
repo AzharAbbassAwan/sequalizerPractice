@@ -2,7 +2,7 @@ const express = require('express');
 const User = require('../models/user');
 const router = express.Router();
 
-router.post('/users', async (req, res) => {
+router.post('/user', async (req, res) => {
   try {
     const { name, email, age } = req.body;
     const newUser = await User.create({ name, email, age });
@@ -15,7 +15,6 @@ router.post('/users', async (req, res) => {
 
 router.get('/user/:id', async (req, res) => {
   const { id } = req.params;
-  console.log("id", id);
   try {
     const user = await User.findOne({
       where:{
@@ -43,8 +42,8 @@ router.get('/users', async (req, res) => {
   }
 });
 
-router.put('/user/:id', async (req, res) => {
-  const { id } = req.params;
+router.put('/user', async (req, res) => {
+  const { id } = req.query;
   const { name, email, age } = req.body;
   try {
     const user = await User.findByPk(id);
@@ -63,8 +62,8 @@ router.put('/user/:id', async (req, res) => {
   }
 });
 
-router.delete('/users/:id', async (req, res) => {
-  const { id } = req.params;
+router.delete('/user', async (req, res) => {
+  const { id } = req.body;
   try {
     const user = await User.findByPk(id);
     if (user) {
